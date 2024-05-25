@@ -1,7 +1,7 @@
 @charset "UTF-8";
-/*!
+/*
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
- * Copyright 2011-2023 The Bootstrap Authors
+ * Copyright 2011-2024 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root,
@@ -216,15 +216,6 @@ body {
 
 /* My Style */
 
-
-.api-Whatsapp{
-  top: 50px;
-  position: fixed;
-  right: 20px;
-  top: 620px;
-  width: 60px;
-  height: 70px;
-}
 .border-slider{
   border: #ccc 2px solid !important;
 
@@ -292,9 +283,26 @@ body {
 .is-invalid ~ .invalid-feedback {
   display: block;
 }
-
+.subir{
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 1.5rem;
+position: fixed;
+bottom: 30px;
+right: 30px;
+background-color: #4136AE;
+width: 50px;
+height: 50px;
+border-radius: 5px;
+color: #fff;
+}
 
 /* END MY STYLE */
+
+
+
+
 hr {
   margin: 1rem 0;
   color: #85878a;

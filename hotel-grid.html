@@ -1,111 +1,73 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-	<title>Clandestino - Reservas Online</title>
+	<title>Clandestino69 - Sistema de Reservas Online</title>
 
 	<!-- Meta Tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="Edexa.com">
-	<meta name="description" content="Clandestino">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Clandestino69 - Sistema de Reservas Online">
 
 	<!-- Dark mode -->
 	<script>
+		const storedTheme = localStorage.getItem('theme')
+ 
+		const getPreferredTheme = () => {
+			if (storedTheme) {
+				return storedTheme
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+		}
 
-const storedTheme = localStorage.getItem('theme');
+		const setTheme = function (theme) {
+			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				document.documentElement.setAttribute('data-bs-theme', 'dark')
+			} else {
+				document.documentElement.setAttribute('data-bs-theme', theme)
+			}
+		}
 
-const getPreferredTheme = () => {
-    if (storedTheme) {
-        return storedTheme;
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-};
+		setTheme(getPreferredTheme())
 
-const setTheme = function (theme) {
-    if (theme === 'auto') {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-bs-theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-bs-theme', 'light');
-        }
-    } else {
-        document.documentElement.setAttribute('data-bs-theme', theme);
-    }
-};
+		window.addEventListener('DOMContentLoaded', () => {
+		    var el = document.querySelector('.theme-icon-active');
+			if(el != 'undefined' && el != null) {
+				const showActiveTheme = theme => {
+				const activeThemeIcon = document.querySelector('.theme-icon-active use')
+				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
 
-setTheme(getPreferredTheme());
+				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+					element.classList.remove('active')
+				})
 
-window.addEventListener('DOMContentLoaded', () => {
-    var el = document.querySelector('.theme-icon-active');
-    if (el != 'undefined' && el != null) {
-        const showActiveTheme = theme => {
-            const activeThemeIcon = document.querySelector('.theme-icon-active use');
-            const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`);
-            const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href');
+				btnToActive.classList.add('active')
+				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+			}
 
-            document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-                element.classList.remove('active');
-            });
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' || storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
 
-            btnToActive.classList.add('active');
-            activeThemeIcon.setAttribute('href', svgOfActiveBtn);
-        };
+			showActiveTheme(getPreferredTheme())
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            if (storedTheme !== 'light' && storedTheme !== 'dark') {
-                setTheme(getPreferredTheme());
-                showActiveTheme(getPreferredTheme());
-            }
-        });
+			document.querySelectorAll('[data-bs-theme-value]')
+				.forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+						showActiveTheme(theme)
+					})
+				})
 
-        showActiveTheme(getPreferredTheme());
-
-        document.querySelectorAll('[data-bs-theme-value]')
-            .forEach(toggle => {
-                toggle.addEventListener('click', () => {
-                    const theme = toggle.getAttribute('data-bs-theme-value');
-                    localStorage.setItem('theme', theme);
-                    setTheme(theme);
-                    showActiveTheme(theme);
-                });
-            });
-    }
-});
-
-		/* MY CODE */
-		document.addEventListener('DOMContentLoaded', function () {
-            var slider = tns({
-                container: '.tiny-slider-inner',
-                items: 3,
-                slideBy: 'page',
-                autoplay: true,
-                controls: true,
-                nav: false,
-                loop: true,
-                responsive: {
-                    1200: {
-                        items: 3
-                    },
-                    992: {
-                        items: 2
-                    },
-                    768: {
-                        items: 1
-                    }
-                }
-            });
-        });
+			}
+		})
 		
-		 // Initialize Flatpickr
-		 flatpickr(".flatpickr", {});
-
-		// Initialize Choice.js
-		const choices = new Choices('.js-choice', {
-	searchEnabled: true,
-});
-		/* FIM SLIDER */
-
-
 	</script>
 
 	<!-- Favicon -->
@@ -130,13 +92,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	<!-- NOSSO CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	
-	<!-- NOSSO CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	
+
 </head>
 
-<body class="has-navbar-mobile">
+<body>
 
 <!-- Header START -->
 <header class="navbar-light header-sticky">
@@ -149,8 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				<img class="dark-mode-item navbar-brand-item" src="assets/images/logo.png" alt="logo">
 			</a>
 			<!-- Logo END -->
-
-			<!-- Responsive navbar toggler -->
+			
 			<button class="navbar-toggler ms-auto ms-sm-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-animation">
 					<span></span>
@@ -175,17 +133,18 @@ window.addEventListener('DOMContentLoaded', () => {
 						<ul class="dropdown-menu" aria-labelledby="listingMenu">
 							<!-- Dropdown submenu -->
 							<li class="dropdown-submenu dropend">
-								<a class="dropdown-item dropdown-toggle" href="#">Hotel</a>
-								<ul class="dropdown-menu" data-bs-popper="none">
-									<li> <a class="dropdown-item" href="index.html">Hotel Home</a></li>
-									<li> <a class="dropdown-item" href="index-hotel-chain.html">Rede de Hotel</a></li>
-									<li> <a class="dropdown-item" href="index-resort.html">Hotel Resort</a></li>
-									<li> <a class="dropdown-item" href="hotel-grid.html">Hotel Grid</a></li>
-									<li> <a class="dropdown-item" href="hotel-list.html">Lista de Hoteis</a></li>
-									<li> <a class="dropdown-item" href="hotel-detail.html">Detalhe de hotel</a></li>
-									<li> <a class="dropdown-item" href="room-detail.html">Detalhe do Quarto</a></li>
-									<li> <a class="dropdown-item" href="hotel-booking.html">Rerserva no Hotel</a></li>
-								</ul>
+<!-- 								<a class="dropdown-item dropdown-toggle" href="#">Hotel</a>
+ -->								<ul class="dropdown-menu" data-bs-popper="none">
+<!-- 									<li> <a class="dropdown-item" href="index.html">Hotel Home</a></li>
+ -->									<!-- <li> <a class="dropdown-item" href="index-hotel-chain.html">Rede de Hotel</a></li> -->
+<!-- 									<li> <a class="dropdown-item" href="index-resort.html">Hotel Resort</a></li>
+ -->									<!-- <li> <a class="dropdown-item" href="hotel-grid.html">Hotel Grid</a></li> -->
+<!-- 									<li> <a class="dropdown-item" href="hotel-list.html">Lista de Hoteis</a></li>
+ -->									<!-- <li> <a class="dropdown-item" href="hotel-detail.html">Detalhe de hotel</a></li> -->
+<!-- 									<li> <a class="dropdown-item" href="room-detail.html">Detalhe do Quarto</a></li>
+-->									
+<!-- 										<li> <a class="dropdown-item" href="hotel-booking.html">Rerserva no Hotel</a></li>
+ -->								</ul>
 							</li>
 
 							<!-- Dropdown submenu -->
@@ -211,7 +170,7 @@ window.addEventListener('DOMContentLoaded', () => {
 							</li> -->
 
 							<!-- Dropdown submenu -->
-							<li class="dropdown-submenu dropend">
+							<!-- <li class="dropdown-submenu dropend">
 								<a class="dropdown-item dropdown-toggle" href="#">Cab</a>
 								<ul class="dropdown-menu" data-bs-popper="none">
 									<li> <a class="dropdown-item" href="index-cab.html">Cab Home</a></li>
@@ -219,16 +178,16 @@ window.addEventListener('DOMContentLoaded', () => {
 									<li> <a class="dropdown-item" href="cab-detail.html">Cab Detail</a></li>
 									<li> <a class="dropdown-item" href="cab-booking.html">Cab Booking</a></li>
 								</ul>
-							</li>
+							</li> -->
 
 							<!-- Dropdown submenu -->
-							<li class="dropdown-submenu dropend">
+							<!-- <li class="dropdown-submenu dropend">
 								<a class="dropdown-item dropdown-toggle" href="#">Directório</a>
 								<ul class="dropdown-menu" data-bs-popper="none">
 									<li> <a class="dropdown-item" href="index-directory.html">Directory Home</a></li>
 									<li> <a class="dropdown-item" href="directory-detail.html">Directory Detail</a></li>
 								</ul>
-							</li>
+							</li> -->
 
 							<!-- Dropdown submenu -->
 							<li class="dropdown-submenu dropend">
@@ -242,7 +201,7 @@ window.addEventListener('DOMContentLoaded', () => {
 							</li>
 
 							<!-- Dropdown submenu -->
-							<li class="dropdown-submenu dropend">
+							<!-- <li class="dropdown-submenu dropend">
 								<a class="dropdown-item dropdown-toggle" href="#">Hero</a>
 								<ul class="dropdown-menu" data-bs-popper="none">
 									<li> <a class="dropdown-item" href="hero-inline-form.html">Hero Inline Form</a></li>
@@ -250,12 +209,12 @@ window.addEventListener('DOMContentLoaded', () => {
 									<li> <a class="dropdown-item" href="hero-image-gallery.html">Hero Image Gallery</a></li>
 									<li> <a class="dropdown-item" href="hero-split.html">Hero Split</a></li>
 								</ul>
-							</li>
+							</li> -->
 
-							<li> <a class="dropdown-item" href="booking-confirm.html">Booking Confirmed</a></li>
-							<li> <a class="dropdown-item" href="compare-listing.html">Compare Listing</a></li>
-							<li> <a class="dropdown-item" href="offer-detail.html">Offer Detail</a></li>
-						</ul>
+							<li> <a class="dropdown-item" href="booking-confirm.html">Rerserva confirmada</a></li>
+							<li> <a class="dropdown-item" href="compare-listing.html">Lista de comparação</a></li>
+<!-- 							<li> <a class="dropdown-item" href="offer-detail.html">Offer Detail</a></li>
+ -->						</ul>
 					</li>
 
 					<!-- Nav item Pages -->
@@ -265,8 +224,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 							<li> <a class="dropdown-item" href="about.html">Sobre</a></li>
 							<li> <a class="dropdown-item" href="contact.html">Contactos</a></li>
-							<li> <a class="dropdown-item" href="contact-2.html">Contactos 2</a></li>
-							<li> <a class="dropdown-item" href="team.html">Toda Equipa</a></li>
+<!-- 							<li> <a class="dropdown-item" href="contact-2.html">Contactos 2</a></li>
+ -->							<li> <a class="dropdown-item" href="team.html">Toda Equipa</a></li>
 
 							<!-- Dropdown submenu -->
 							<li class="dropdown-submenu dropend">
@@ -281,27 +240,27 @@ window.addEventListener('DOMContentLoaded', () => {
 							</li>
 
 							<!-- Dropdown submenu -->
-							<li class="dropdown-submenu dropend">
+							<!-- <li class="dropdown-submenu dropend">
 								<a class="dropdown-item dropdown-toggle" href="#">Blog</a>
 								<ul class="dropdown-menu" data-bs-popper="none">
 									<li> <a class="dropdown-item" href="blog.html">Blog</a></li>
 									<li> <a class="dropdown-item" href="blog-detail.html">Blog Detail</a></li>
 								</ul>
-							</li>
+							</li> -->
 
 							<!-- Dropdown submenu -->
 							<li class="dropdown-submenu dropend">
-								<a class="dropdown-item dropdown-toggle" href="#">Help</a>
+								<a class="dropdown-item dropdown-toggle" href="#">Ajuda</a>
 								<ul class="dropdown-menu" data-bs-popper="none">
 									<li> <a class="dropdown-item" href="help-center.html">Centro de Ajuda</a></li>
-									<li> <a class="dropdown-item" href="help-detail.html">Help Detail</a></li>
-									<li> <a class="dropdown-item" href="privacy-policy.html">Políticas de Privacidade</a></li>
+<!-- 									<li> <a class="dropdown-item" href="help-detail.html">Help Detail</a></li>
+ -->									<li> <a class="dropdown-item" href="privacy-policy.html">Políticas de Privacidade</a></li>
 									<li> <a class="dropdown-item" href="terms-of-service.html">Termos de Serviços</a></li>
 								</ul>
 							</li>
 
-							<li> <a class="dropdown-item" href="pricing.html">Pricing</a></li>
-							<li> <a class="dropdown-item" href="faq.html">FAQs</a></li>
+<!-- 							<li> <a class="dropdown-item" href="pricing.html">Pricing</a></li>
+ -->							<li> <a class="dropdown-item" href="faq.html">Perguntas frequentes</a></li>
 							<li> <a class="dropdown-item" href="error.html">Error 404</a></li>
 							<li> <a class="dropdown-item" href="coming-soon.html">Coming Soon</a></li>
 						</ul>
@@ -316,12 +275,12 @@ window.addEventListener('DOMContentLoaded', () => {
 								<a class="dropdown-item dropdown-toggle" href="#">Perfil do Usuário</a>
 								<ul class="dropdown-menu" data-bs-popper="none">
 									<li> <a class="dropdown-item" href="account-profile.html">Meu Perfil</a> </li>
-									<li> <a class="dropdown-item" href="account-bookings.html">Minhas Reservas</a> </li>
+									<!-- <li> <a class="dropdown-item" href="account-bookings.html">Minhas Reservas</a> </li>
 									<li> <a class="dropdown-item" href="account-travelers.html">Travelers</a> </li>
 									<li> <a class="dropdown-item" href="account-payment-details.html">Detalhes de Pagamentos</a> </li>
 									<li> <a class="dropdown-item" href="account-wishlist.html">Wishlist</a> </li>
 									<li> <a class="dropdown-item" href="account-settings.html">Definições</a> </li>
-									<li> <a class="dropdown-item" href="account-delete.html">Eliminar Perfil</a> </li>
+									<li> <a class="dropdown-item" href="account-delete.html">Eliminar Perfil</a> </li> --> 
 								</ul>
 							</li>
 
@@ -329,17 +288,25 @@ window.addEventListener('DOMContentLoaded', () => {
 							<li class="dropdown-submenu dropend">
 								<a class="dropdown-item dropdown-toggle" href="#">Agente Dashboard</a>
 								<ul class="dropdown-menu" data-bs-popper="none">
-									<li> <a class="dropdown-item" href="agent-dashboard.html">Dashboard</a> </li>
+									<!-- <li> <a class="dropdown-item" href="agent-dashboard.html">Dashboard</a> </li>
 									<li> <a class="dropdown-item" href="agent-listings.html">Listings</a> </li>
 									<li> <a class="dropdown-item" href="agent-bookings.html">Reservas</a> </li>
 									<li> <a class="dropdown-item" href="agent-activities.html">Actividades</a> </li>
 									<li> <a class="dropdown-item" href="agent-earnings.html">Earnings</a> </li>
 									<li> <a class="dropdown-item" href="agent-reviews.html">Avaliações</a> </li>
-									<li> <a class="dropdown-item" href="agent-settings.html">Definições</a> </li>
+									<li> <a class="dropdown-item" href="agent-settings.html">Definições</a> </li> -->
+
+									<li> <a class="dropdown-item" href="sign-in.html">Dashboard</a> </li>
+									<!-- <li> <a class="dropdown-item" href="sign-in.html">Listings</a> </li>
+									<li> <a class="dropdown-item" href="sign-in.html">Reservas</a> </li>
+									<li> <a class="dropdown-item" href="sign-in.html">Actividades</a> </li>
+									<li> <a class="dropdown-item" href="sign-in.html">Earnings</a> </li>
+									<li> <a class="dropdown-item" href="sign-in.html">Avaliações</a> </li>
+									<li> <a class="dropdown-item" href="sign-in.html">Definições</a> </li> -->
 								</ul>
 							</li>
 							
-							<li> <a class="dropdown-item" href="admin-dashboard.html">Master Admin</a> </li>
+							<li> <a class="dropdown-item" href="login-admin.html">Clandestine Admin</a> </li>
 						</ul>
 					</li>
 
@@ -524,6 +491,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	<!-- Logo Nav END -->
 </header>
 <!-- Header END -->
+
+</header>
+<!-- Header END -->
+
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
 
@@ -652,8 +623,8 @@ Main Banner START -->
 <!-- =======================
 Main Banner END -->
 	
-<!-- ======================= Title and Tabs START -->
-
+<!-- =======================
+Title and Tabs START -->
 <section class="pt-0 pb-4">
 	<div class="container position-relative">
 
@@ -694,7 +665,7 @@ Main Banner END -->
 					<!-- Input item -->
 					<div class="col-md-6 col-lg-4">
 						<div class="form-control-borderless">
-							<label class="form-label">Enter Hotel</label>
+							<label class="form-label">Enter Hotel Name</label>
 							<input type="text" class="form-control form-control-lg">
 						</div>
 					</div>
@@ -968,8 +939,15 @@ Hotel grid START -->
 							<!-- Image item -->
 							<div><img src="assets/images/category/hotel/4by3/09.jpg" alt="Card image"></div>
 
-					
-						</div>
+							<!-- Image item -->
+<!-- 							<div><img src="assets/images/category/hotel/4by3/02.jpg" alt="Card image"></div>
+ -->
+							<!-- Image item -->
+<!-- 							<div><img src="assets/images/category/hotel/4by3/03.jpg" alt="Card image"></div>
+ -->
+							<!-- Image item -->
+<!-- 							<div><img src="assets/images/category/hotel/4by3/01.jpg" alt="Card image"></div>
+ -->						</div>
 					</div>
 					<!-- Slider END -->
 
@@ -1407,7 +1385,11 @@ Hotel grid END -->
 
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
-
+<a href="#voltar">
+	<div class="subir">
+		<i class="fa-solid fa-arrow-up"></i>
+	</div>
+</a>
 <!-- =======================
 Footer START -->
 <footer class="bg-dark pt-5">
@@ -1419,7 +1401,7 @@ Footer START -->
 			<div class="col-lg-3">
 				<!-- logo -->
 				<a href="index.html">
-					<img class="h-40px" src="assets/images/logo-light.svg" alt="logo">
+					<img class="h-40px" src="assets/images/logo.png" alt="logo">
 				</a>
 				<p class="my-3 text-body-secondary">Departure defective arranging rapturous did believe him all had supported.</p>
 				<p class="mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i class="bi bi-telephone me-2"></i>+1234 568 963</a> </p>

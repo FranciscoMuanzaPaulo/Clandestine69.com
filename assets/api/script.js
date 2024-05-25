@@ -34,3 +34,41 @@ console.log(data)
 
   });
 
+
+  /* Pagamento */
+  
+  document.getElementById('payForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+   
+    const paymentData = {
+      cardNumber: formData.get('cardNumber'),
+      expirationMonth: formData.get('expirationMonth'),
+      expirationYear: formData.get('expirationYear'),
+      cvv: formData.get('cvv'),
+      cardName: formData.get('cardName'),
+    
+    }
+
+console.log(data)
+
+    fetch('http://localhost:8081/usuario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(paymentData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert('Usuário cadastrado com sucesso:', paymentData);
+      console.log('Successo:', paymentData);
+
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+  });
+
